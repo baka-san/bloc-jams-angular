@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Bloc Frontend Project Starter
 
 A starter application for student projects in Bloc's [Frontend Web Development Course](https://www.bloc.io/frontend-development-bootcamp).
@@ -110,3 +111,6 @@ The `templates` directory should hold any HTML files used as templates in Angula
 # bloc-jams-angular
 Look at Bloc Jams from a different "angle" (derp)
 >>>>>>> 820d2ceeff3bba5ba16ee14a8e5a1426740dae89
+=======
+
+>>>>>>> 38f1e0895318899ce7ce4415a74349b8d1db020b

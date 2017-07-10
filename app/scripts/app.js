@@ -5,6 +5,7 @@
 	            enabled: true,
 	            requireBase: false
 	        });
+
 	    $stateProvider
 	    	.state('landing', {
 	    		url: '/',
@@ -16,7 +17,7 @@
 	    	})
 	    	.state('collection', {
 	    		url: '/collection',
-	    		templateURL: '/templates/collection.html'
+	    		templateUrl: '/templates/collection.html'
 	    	});
 	}
 

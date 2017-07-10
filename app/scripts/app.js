@@ -13,7 +13,8 @@
 	    	})
 	    	.state('album', {
 	    		url: '/album',
-	    		templateUrl: '/templates/album.html'
+	    		templateUrl: '/templates/album.html',
+	    		controller: 'albumCtrl'
 	    	})
 	    	.state('collection', {
 	    		url: '/collection',
@@ -21,7 +22,16 @@
 	    	});
 	}
 
+	function albumCtrl() {
+		this.playing = false;
+		this.hovered = false;
+	}
+
     angular
         .module('blocJams', ['ui.router'])
-        .config(config);
+        .config(config)
+
+    	// Album controller
+    	.controller('albumCtrl', albumCtrl);
+
 })();

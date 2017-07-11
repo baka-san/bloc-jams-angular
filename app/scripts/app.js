@@ -9,29 +9,22 @@
 	    $stateProvider
 	    	.state('landing', {
 	    		url: '/',
+	    		controller: 'LandingCtrl as landing',
 	    		templateUrl: '/templates/landing.html'
 	    	})
 	    	.state('album', {
 	    		url: '/album',
-	    		templateUrl: '/templates/album.html',
-	    		controller: 'albumCtrl'
+	    		controller: 'AlbumCtrl as album',
+	    		templateUrl: '/templates/album.html'
 	    	})
 	    	.state('collection', {
-	    		url: '/collection',
-	    		templateUrl: '/templates/collection.html'
+	    	    url: '/collection',
+	    	    controller: 'CollectionCtrl as collection',
+	    	    templateUrl: '/templates/collection.html'
 	    	});
-	}
-
-	function albumCtrl() {
-		this.playing = false;
-		this.hovered = false;
 	}
 
     angular
         .module('blocJams', ['ui.router'])
-        .config(config)
-
-    	// Album controller
-    	.controller('albumCtrl', albumCtrl);
-
+        .config(config);
 })();

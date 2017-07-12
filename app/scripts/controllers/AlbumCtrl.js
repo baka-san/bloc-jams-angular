@@ -1,13 +1,14 @@
 (function() {
 
-	function AlbumCtrl() {
+	function AlbumCtrl(Fixtures) {
 		// this.playing = false;
 		// this.hovered = false;
-		this.albumData = albumPicasso;
+		this.albumData = Fixtures.getAlbum();
 		this.releaseInfo = this.albumData.year + " " + this.albumData.label;
 	}
 
 	angular
 		.module('blocJams')
-		.controller('AlbumCtrl', AlbumCtrl);
+		.controller('AlbumCtrl', ['Fixtures', AlbumCtrl]);
+
 })();

@@ -16,7 +16,7 @@
 		        { name: 'Magenta', length: '374.22', audioUrl: 'assets/music/magenta' }
 		    ]
 		};
-
+		
 		var albumMarconi = {
 		    name: 'The Telephone',
 		    artist: 'Guglielmo Marconi',

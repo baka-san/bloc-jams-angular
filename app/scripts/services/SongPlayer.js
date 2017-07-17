@@ -18,12 +18,28 @@
     		SongPlayer.currentSong = song;
     	};
 
-    	// Get the index of a song
+    	// Get the index of a song (private)
     	var getSongIndex = function(song) {
     		return currentAlbum.songs.indexOf(song);
     	};
 
-    	// Go to the previous song
+    	// Play a song, update playing (private)
+    	var playSong = function(song) {
+
+    		// Set the audio file to play
+    		currentBuzzObject.play();
+
+    		// There is currently a song playing
+    		SongPlayer.currentSong.playing = true;
+    	};
+
+    	// Stop a song (private)
+    	var stopSong = function(song) {
+    		currentBuzzObject.stop();
+    		SongPlayer.currentSong.playing = null;
+    	};
+
+    	// Go to the previous song (public)
     	SongPlayer.previous = function() {
     		
     		if(currentBuzzObject) {
@@ -44,45 +60,70 @@
     		}
     	};
 
-    	// Logic for playing a song (private)
-    	var playSong = function(song) {
+    	// Go to the next song (public)
+    	SongPlayer.next = function() {
+    		
+    		if(currentBuzzObject) {
+    			// Index of current song
+    			var songIndex = getSongIndex(SongPlayer.currentSong);
 
-    		// Set the audio file to play
-    		currentBuzzObject.play();
-
-    		// There is currently a song playing
-    		SongPlayer.currentSong.playing = true;
-    	};
-
-    	// Play a song (public method)
-    	SongPlayer.play = function(song) {
-
-    		// Album view sends in song, player bar doesn't so set
-    		song = song || SongPlayer.currentSong;
-
-    		// Play a new song
-    		if(SongPlayer.currentSong !== song) {
-
-    			// Stop the current song, if already playing
-    			if(currentBuzzObject) { 
-    				currentBuzzObject.stop();
-    				SongPlayer.currentSong.playing = null;
+    			// If it's the first song, loop to last song
+    			if(songIndex === currentAlbum.songs.length - 1) {
+    				songIndex = 0;
+    			}
+    			// Increment the song
+    			else {
+    				songIndex++;
     			}
 
-    			// Update song variable info
-    			setSong(song);
+    			var song = currentAlbum.songs[songIndex];
+    			SongPlayer.play(song);
+    		}
+    	};
 
-    			// Play the song
-    			playSong(song);
-    		}   
-    		// The current song is paused, play it
-    		else if(SongPlayer.currentSong == song) {
-    			playSong(song);
-    		} 	
+    	// Play a song (public)
+    	SongPlayer.play = function(song) {
+
+    		// A song is already playing
+    		if(currentBuzzObject){
+
+	    		// Album view sends in song, player bar doesn't so set
+	    		song = song || SongPlayer.currentSong;
+
+	    		// Play a new song
+	    		if(SongPlayer.currentSong !== song) {
+
+    				// Stop the current song
+    				stopSong(song);
+
+	    			// Update song variable info
+	    			setSong(song);
+
+	    			// Play the song
+	    			playSong(song);
+	    		}   
+	    		// The current song is paused, play it
+	    		else if(SongPlayer.currentSong == song) {
+	    			playSong(song);
+	    		} 	
+	    	}
+	    	// No song is playing, play first song
+	    	else {
+
+	    		// Album view sends in song, player bar doesn't so set
+	    		song = currentAlbum.songs[0];
+
+	    		// Update song variable info
+	    		setSong(song);
+
+	    		// Play the song
+	    		playSong(song);
+	    	}
     	};
 
     	// Pause a song (public method)
     	SongPlayer.pause = function(song) {
+
     		// Album view sends in song, player bar doesn't so set
     		song = song || SongPlayer.currentSong;
     		currentBuzzObject.pause();
@@ -120,6 +161,12 @@
 	    	* @function playSong (private)
 	    	* @desc Plays audio file and updates song.playing.
 	    	* @param {Object} song
+	    	*
+	    	* @function SongPlayer.previous (public)
+	    	* @desc Skips to the previous song
+	    	*
+	    	* @function SongPlayer.next (public)
+	    	* @desc Skips to next song
 	    	*
 	    	* @function SongPlayer.play (public)
 	    	* @desc Stops currently playing song, sets new song, and then plays it.

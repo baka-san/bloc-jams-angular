@@ -32,26 +32,12 @@
 		    ]
 		};
 
-		// Works
+		// Set album to Picasso
 		Fixtures.getAlbum = function() {
 			return albumPicasso;
 		};
 
-	    // Doesn't work
-	    // this.getAlbum = function() {
-	    // 	Albums.push(angular.copy(albumPicasso));
-	    // 	return Albums;
-	    // };
-
-	    // Doesn't work
-	    // return function getAlbum() {
-	    // 	Fixtures.push(angular.copy(albumPicasso));
-	    // };
-
-	    // Is it because the function has been immediately invoked 
-	    // and it's methods aren't available?
-	    // If so, why are they available in the case of Albums.getAlbum
-
+		// Push Picasso album into collection repeatedly
 	    Fixtures.getCollection = function(numberOfAlbums) {
 	    	var albums = [];
 	    	
@@ -61,18 +47,9 @@
 	    	return albums;
 	    };
 
-	    // Doesn't work
-	    // Fixtures.getCollection = function(numberOfAlbums) {
-	    // 	for (var i = 0; i < numberOfAlbums; i++) {
-	    // 		this[i] = albumPicasso;
-	    // 	}
-	    // 	return Fixtures;
-	    // };
-
 	    return Fixtures;
 	};
  
-	// Why don't we name it FixturesFactory instead??
 	angular
 	    .module('blocJams')
 	    .factory('Fixtures', Fixtures);

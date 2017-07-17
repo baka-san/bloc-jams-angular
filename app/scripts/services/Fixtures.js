@@ -32,6 +32,10 @@
 		    ]
 		};
 
+		// Format the album release info
+		Fixtures.releaseInfo = function(album) {
+			return album.albumData.year + " " + album.albumData.label;
+		}
 		// Set album to Picasso
 		Fixtures.getAlbum = function() {
 			return albumPicasso;

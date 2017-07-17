@@ -1,9 +1,12 @@
 (function() {
-    function SongPlayer() {
+    function SongPlayer(Fixtures) {
     	// Function Variables
     	var SongPlayer = {};
-    	var currentSong = null;
     	var currentBuzzObject = null;
+    	var currentAlbum = Fixtures.getAlbum();
+
+    	// Initially there isn't a current song
+    	SongPlayer.currentSong = null;
 
     	// Update song variable info
     	var setSong = function(song) {
@@ -12,7 +15,33 @@
     		    preload: true
     		});
     		
-    		currentSong = song;
+    		SongPlayer.currentSong = song;
+    	};
+
+    	// Get the index of a song
+    	var getSongIndex = function(song) {
+    		return currentAlbum.songs.indexOf(song);
+    	};
+
+    	// Go to the previous song
+    	SongPlayer.previous = function() {
+    		
+    		if(currentBuzzObject) {
+    			// Index of current song
+    			var songIndex = getSongIndex(SongPlayer.currentSong);
+
+    			// If it's the first song, loop to last song
+    			if(songIndex === 0) {
+    				songIndex = currentAlbum.songs.length - 1;
+    			}
+    			// Increment the song
+    			else {
+    				songIndex--;
+    			}
+
+    			var song = currentAlbum.songs[songIndex];
+    			SongPlayer.play(song);
+    		}
     	};
 
     	// Logic for playing a song (private)
@@ -22,19 +51,22 @@
     		currentBuzzObject.play();
 
     		// There is currently a song playing
-    		currentSong.playing = true;
+    		SongPlayer.currentSong.playing = true;
     	};
 
     	// Play a song (public method)
     	SongPlayer.play = function(song) {
 
+    		// Album view sends in song, player bar doesn't so set
+    		song = song || SongPlayer.currentSong;
+
     		// Play a new song
-    		if(currentSong !== song) {
+    		if(SongPlayer.currentSong !== song) {
 
     			// Stop the current song, if already playing
     			if(currentBuzzObject) { 
     				currentBuzzObject.stop();
-    				currentSong.playing = null;
+    				SongPlayer.currentSong.playing = null;
     			}
 
     			// Update song variable info
@@ -43,14 +75,16 @@
     			// Play the song
     			playSong(song);
     		}   
-    		// The current song is pause, play it
-    		else if(currentSong == song) {
+    		// The current song is paused, play it
+    		else if(SongPlayer.currentSong == song) {
     			playSong(song);
     		} 	
     	};
 
     	// Pause a song (public method)
     	SongPlayer.pause = function(song) {
+    		// Album view sends in song, player bar doesn't so set
+    		song = song || SongPlayer.currentSong;
     		currentBuzzObject.pause();
     		song.playing = false;
     	};
@@ -63,17 +97,25 @@
 	    	* @desc Object returned with public variables and methods such as playing and pausing song.
 	    	* @type {Object}
 	    	*
-	    	* @var currentSong (private)
-	    	* @desc Variable holding currently playing song object from Fixtures.js
-	    	* @type {Object}
-	    	*
 	    	* @var currentBuzzObject (private)
 	    	* @desc Buzz object audio file
+	    	* @type {Object}
+	    	*
+	    	* @var currentAlbum (private)
+	    	* @desc current album displayed on page from Fixtures.js
+	    	* @type {object}
+	    	*
+	    	* @var currentSong (public)
+	    	* @desc Variable holding currently playing song object from Fixtures.js
 	    	* @type {Object}
 	    	*
 	    	* @function setSong (private)
 	    	* @desc Loads new audio file as currentBuzzObject and updates the currentSong variable
 	    	* @param {Object} song
+	    	*
+	    	* @function getSongIndex (private)
+	    	* @desc Get index of the inputed song
+			* @param {Object} song
 	    	*
 	    	* @function playSong (private)
 	    	* @desc Plays audio file and updates song.playing.

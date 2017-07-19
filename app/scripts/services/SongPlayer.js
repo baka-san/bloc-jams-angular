@@ -111,7 +111,7 @@
 	    	else {
 
 	    		// Album view sends in song, player bar doesn't so set
-	    		song = currentAlbum.songs[0];
+	    		song = song || currentAlbum.songs[0];
 
 	    		// Update song variable info
 	    		setSong(song);

@@ -1,5 +1,5 @@
 (function() {
-    function SongPlayer(Fixtures) {
+    function SongPlayer($rootScope, Fixtures) {
     	// Function Variables
     	var SongPlayer = {};
     	var currentBuzzObject = null;
@@ -7,6 +7,7 @@
 
     	// Initially there isn't a current song
     	SongPlayer.currentSong = null;
+        SongPlayer.currentTime = null
 
     	// Update song variable info
     	var setSong = function(song) {
@@ -16,6 +17,12 @@
     		});
     		
     		SongPlayer.currentSong = song;
+
+            currentBuzzObject.bind('timeupdate', function() {
+                $rootScope.$apply(function() {
+                    SongPlayer.currentTime = currentBuzzObject.getTime();
+                });
+            });
     	};
 
     	// Get the index of a song (private)
@@ -80,6 +87,13 @@
     			SongPlayer.play(song);
     		}
     	};
+
+        // Set the current time of the song in the player bar
+        SongPlayer.setCurrentTime = function(time) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setTime(time);
+            }
+        };
 
     	// Play a song (public)
     	SongPlayer.play = function(song) {
@@ -150,6 +164,10 @@
 	    	* @desc Variable holding currently playing song object from Fixtures.js
 	    	* @type {Object}
 	    	*
+            * @var currentTime (public)
+            * @desc Current playback time (in seconds) of currently playing song
+            * @type {Number}
+            *
 	    	* @function setSong (private)
 	    	* @desc Loads new audio file as currentBuzzObject and updates the currentSong variable
 	    	* @param {Object} song
@@ -167,6 +185,10 @@
 	    	*
 	    	* @function SongPlayer.next (public)
 	    	* @desc Skips to next song
+            *
+            * @function setCurrentTime (public)
+            * @desc Set current time (in seconds) of currently playing song
+            * @param {Number} time
 	    	*
 	    	* @function SongPlayer.play (public)
 	    	* @desc Stops currently playing song, sets new song, and then plays it.

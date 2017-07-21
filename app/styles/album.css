@@ -30,13 +30,17 @@
 
 .album-view-song-item {
     height: 3rem;
-    /* #1 */
     border-bottom: 1px solid rgba(255,255,255,0.5);
 }
 
 .song-item-number {
-    width: 5%;
-    min-width: 30px;
+    width: 7%;
+    min-width: 40px;
+    text-align: center;
+}
+
+.song-item-number > * {
+    margin-right: 1rem;
 }
 
 .song-item-title {

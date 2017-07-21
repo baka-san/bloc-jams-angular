@@ -7,7 +7,10 @@
 
     	// Initially there isn't a current song
     	SongPlayer.currentSong = null;
-        SongPlayer.currentTime = null
+        SongPlayer.currentTime = null;
+
+        // Initial volume is 80
+        SongPlayer.volume = 80;
 
     	// Update song variable info
     	var setSong = function(song) {
@@ -95,6 +98,15 @@
             }
         };
 
+        // Upsdate the volume
+        SongPlayer.setVolume = function(volume) {
+            if(currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
+            }
+
+            SongPlayer.volume = volume;
+        };
+
     	// Play a song (public)
     	SongPlayer.play = function(song) {
 
@@ -129,6 +141,9 @@
 
 	    		// Update song variable info
 	    		setSong(song);
+
+                // Set up the initial volume to 80%
+                //SongPlayer.setVolume(30);
 
 	    		// Play the song
 	    		playSong(song);

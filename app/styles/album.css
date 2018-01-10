@@ -34,21 +34,23 @@
 }
 
 .song-item-number {
-    width: 7%;
-    min-width: 40px;
-    text-align: center;
+  min-width: 45px;
+  max-width: 50px;
+  text-align: left;
+  padding-left: 10px;
 }
 
-.song-item-number > * {
+/*.song-item-number > * {
     margin-right: 1rem;
-}
+}*/
 
 .song-item-title {
     width: 85%;
 }
 
 .song-item-duration {
-    width: 5%;
+  width: 10%;
+  text-align: right;
 }
 
 .album-song-button {
@@ -60,6 +62,7 @@
     display: inline-block;
     width: 28px;
     height: 28px;
+    margin-left: -10px;
 }
 
 .album-song-button:hover {
